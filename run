@@ -1,12 +1,29 @@
 #!/bin/bash
+
+if [ ! -f /firstrundone ]; then
+	if [ "$RELAY_HOST" != "" ]; then
+		echo "relayhost = $RELAY_HOST" >> /etc/postfix/main.cf
+	fi
+	if [ "$MASQ_DOMAINS" != "" ]; then
+		echo "masquerade_domains = $MASQ_DOMAINS" >> /etc/postfix/main.cf
+	fi
+	echo "smtp_generic_maps = hash:/etc/postfix/generic" >> /etc/postfix/main.cf
+	echo "root	no-reply@$MASQ_DOMAINS" >> /etc/postfix/generic
+	postmap /etc/postfix/generic
+	echo "done" >> /firstrundone
+fi
+
+service postfix start
 set -e
 
-PHP_ERROR_REPORTING=${PHP_ERROR_REPORTING:-"E_ALL & ~E_DEPRECATED & ~E_NOTICE"}
-sed -ri 's/^display_errors\s*=\s*Off/display_errors = On/g' /etc/php5/apache2/php.ini
-sed -ri 's/^display_errors\s*=\s*Off/display_errors = On/g' /etc/php5/cli/php.ini
-sed -ri "s/^error_reporting\s*=.*$//g" /etc/php5/apache2/php.ini
-sed -ri "s/^error_reporting\s*=.*$//g" /etc/php5/cli/php.ini
-echo "error_reporting = $PHP_ERROR_REPORTING" >> /etc/php5/apache2/php.ini
-echo "error_reporting = $PHP_ERROR_REPORTING" >> /etc/php5/cli/php.ini
-
+#PHP_ERROR_REPORTING=${PHP_ERROR_REPORTING:-"E_ALL & ~E_DEPRECATED & ~E_NOTICE"}
+#sed -ri 's/^display_errors\s*=\s*Off/display_errors = On/g' /etc/php5/apache2/php.ini
+#sed -ri 's/^display_errors\s*=\s*Off/display_errors = On/g' /etc/php5/cli/php.ini
+#sed -ri "s/^error_reporting\s*=.*$//g" /etc/php5/apache2/php.ini
+#sed -ri "s/^error_reporting\s*=.*$//g" /etc/php5/cli/php.ini
+#echo "error_reporting = $PHP_ERROR_REPORTING" >> /etc/php5/apache2/php.ini
+#echo "error_reporting = $PHP_ERROR_REPORTING" >> /etc/php5/cli/php.ini
+cp -f /etc/php.ini /etc/php53/apache2/php.ini
+cp -f /etc/php.ini /etc/php53/cli/php.ini
+rm -f /var/run/apache2/*
 source /etc/apache2/envvars && exec /usr/sbin/apache2 -DFOREGROUND
