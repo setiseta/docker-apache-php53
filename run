@@ -2,6 +2,7 @@
 
 if [ ! -f /firstrundone ]; then
 	if [ "$RELAY_HOST" != "" ]; then
+		sed -ri "s/^relayhost\s*=.*$//g" /etc/postfix/main.cf
 		echo "relayhost = $RELAY_HOST" >> /etc/postfix/main.cf
 	fi
 	if [ "$MASQ_DOMAINS" != "" ]; then
