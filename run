@@ -1,5 +1,5 @@
 #!/bin/bash
-
+echo "$VIRTUAL_HOST" > /etc/mailname
 if [ ! -f /firstrundone ]; then
 	if [ "$RELAY_HOST" != "" ]; then
 		sed -ri "s/^relayhost\s*=.*$//g" /etc/postfix/main.cf
