@@ -9,7 +9,7 @@ RUN apt-get update && \
     apt-get update && \
 
     apt-get install -y \
-      apache2 libapache2-mod-php53 apache2-mpm-prefork \
+      wget apache2 libapache2-mod-php53 apache2-mpm-prefork \
       php53-common php53-cli php53-mod-gd php53-mod-mysql \
       php53-mod-bcmath php53-mod-calendar php53-mod-bz2 \
       php53-mod-soap php53-mod-xml php53-mod-xmlreader php53-mod-xmlwriter \
