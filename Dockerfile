@@ -6,6 +6,7 @@ VOLUME ["/var/www"]
 RUN apt-get update && \
     apt-get install -y python-software-properties software-properties-common && \
     add-apt-repository -y ppa:sergey-dryabzhinsky/php53 && \
+    add-apt-repository -y ppa:sergey-dryabzhinsky/packages && \
     apt-get update && \
 
     apt-get install -y \
