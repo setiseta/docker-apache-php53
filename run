@@ -30,7 +30,7 @@ set -e
 #sed -ri "s/^error_reporting\s*=.*$//g" /etc/php5/cli/php.ini
 #echo "error_reporting = $PHP_ERROR_REPORTING" >> /etc/php5/apache2/php.ini
 #echo "error_reporting = $PHP_ERROR_REPORTING" >> /etc/php5/cli/php.ini
-cp -f /etc/php.ini /etc/php53/apache2/php.ini
-cp -f /etc/php.ini /etc/php53/cli/php.ini
+cp -f /etc/php.ini /etc/php5/apache2/php.ini
+cp -f /etc/php.ini /etc/php5/cli/php.ini
 rm -f /var/run/apache2/*
 source /etc/apache2/envvars && exec /usr/sbin/apache2 -DFOREGROUND
