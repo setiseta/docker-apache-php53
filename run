@@ -20,6 +20,11 @@ else
 	postconf -e message_size_limit=20480000
 fi
 
+if [ "$SECURE_COOKIE" == "true" ];
+then
+    echo "Header edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure" > /etc/apache2/conf.d/headers.conf
+fi
+
 service postfix start
 set -e
 
