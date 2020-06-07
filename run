@@ -22,6 +22,7 @@ fi
 
 if [ "$SECURE_COOKIE" == "true" ];
 then
+	a2enmod headers
     echo "Header edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure" > /etc/apache2/conf.d/headers.conf
 fi
 
