@@ -24,6 +24,7 @@ if [ "$SECURE_COOKIE" == "true" ];
 then
     echo "Header edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure" > /etc/apache2/conf-available/headers.conf
     a2enconf headers
+	a2enmod headers
 fi
 
 service postfix start
